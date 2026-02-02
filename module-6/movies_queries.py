@@ -18,7 +18,7 @@ config = {
 get_studio_table = "SELECT * FROM studio"
 get_genre_table = "SELECT * FROM genre"
 get_short_movies = "SELECT * FROM film WHERE film_runtime < 120"
-get_films_by_director = "SELECT * FROM film ORDER BY film_director"
+get_films_by_director = "SELECT film_name, film_director FROM film ORDER BY film_director"
 
 def main():
     try:
@@ -41,7 +41,7 @@ def main():
         print("\n --- Displaying Movies by Director ---")
         cursor.execute(get_films_by_director)
         for movie in cursor:
-            print("  Movie Title: {}\n  Director: {}\n".format(movie[1], movie[2]))
+            print("  Movie Title: {}\n  Director: {}\n".format(movie[0], movie[1]))
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
             print("  The supplied username or password are invalid")
